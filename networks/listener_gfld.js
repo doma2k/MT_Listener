@@ -3,7 +3,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 
-async function listenerBSC(getWalletsToMonitor, sendMessage, listening, provider) {
+async function listenerGFD(getWalletsToMonitor, sendMessage, listening, provider) {
   try {
     provider.on("block", async (blockNumber) => {
       if (listening) {
@@ -22,11 +22,11 @@ async function listenerBSC(getWalletsToMonitor, sendMessage, listening, provider
               sendMessage(
                 chatId,
                 `Transaction detected for monitored wallet:\n` +
-                `BSC Mainnet\n` +
+                `GreenField Test\n` +
                 `Block number: ${blockNumber}\n` +
                 `From: ${transaction.from}\n` +
                 `To: ${transaction.to}\n` +
-                `Value: ${ethers.utils.formatEther(transaction.value)} BNB\n` +
+                `Value: ${ethers.utils.formatEther(transaction.value)} BNBt\n` +
                 `Gas price: ${transaction.gasPrice.toString()} Gwei\n` +
                 `Transaction hash: ${transaction.hash}`
               );
@@ -40,4 +40,4 @@ async function listenerBSC(getWalletsToMonitor, sendMessage, listening, provider
   }
 }
 
-module.exports = listenerBSC;
+module.exports = listenerGFD;
