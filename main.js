@@ -2,11 +2,11 @@ require('dotenv').config();
 const { ethers } = require('ethers');
 const { Telegraf, Markup } = require('telegraf');
 const botActions = require('./components/botActions');
-const listenerBSC = require('./networks/listener_bsc.js');
-const listenerBSCT = require('./networks/listener_bsct.js');
-const listenerETH = require('./networks/listener_eth.js');
-const listenerGFD = require('./networks/listener_gfld.js');
-const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addressHandler.js');
+const listenerBSC = require('./networks/BSC.js');
+const listenerBSCT = require('./networks/BSCt.js');
+const listenerETH = require('./networks/ETH.js');
+const listenerGFD = require('./networks/GFD.js');
+const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addrHandler.js');
 
 const botToken = process.env.BOT_KEY;
 const bot = new Telegraf(botToken);
