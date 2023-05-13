@@ -7,11 +7,11 @@ The Multi-Chain Event Listener is an application that allows you to monitor wall
     <img src ="./images/image.png" width="400" height="200"/>
 </p>
 
-Project in its conceptual stage and future development can be broken down into :
+Project in its conceptual stage and future development can be broken down into stages of:
 
 * Adding an intuitive modular UI for dynamic interaction with multiple chains, contracts, and wallets.
-* Creating scalable and memory-efficient backend logic to store users data.
-* Ability to
+* Implementing a robust alert and notification system for real-time updates on transaction events.
+* Creating scalable and memory-efficient backend logic to store users data using decentralized providers.
 
 ## Application Overview
 
