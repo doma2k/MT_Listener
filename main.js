@@ -6,7 +6,7 @@ const listenerBSC = require('./networks/BSC.js');
 const listenerBSCT = require('./networks/BSCt.js');
 const listenerETH = require('./networks/ETH.js');
 const listenerGFD = require('./networks/GFD.js');
-const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addHandler.js');
+const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addrHandler.js');
 
 const botToken = process.env.BOT_KEY;
 const bot = new Telegraf(botToken);
