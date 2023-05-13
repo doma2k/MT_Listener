@@ -1,6 +1,7 @@
 
 # Multi-chain EVM event Listener.
-
+#### Video Demo:  [Video](https://www.youtube.com/watch?v=HdUmSqjAA2w&t=7s)
+#### Description:
 The Multi-Chain Event Listener is an application that allows you to monitor wallet and contract activities across multiple blockchain networks via a Telegram Bot. You can try this bot in action at [@BinanceTxSpyBot](https://t.me/BinanceTxSpyBot). This [README](https://github.com/doma2k/MT_Listener/blob/main/README.md) provides an overview of the app and guides on how to use it.
 
 <p align="center">
@@ -89,8 +90,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-### Pawerd by Binance [**ZERO2HERO**](https://encodeclub.notion.site/BNB-Chain-Zero2Hero-Hackathon-powered-by-Encode-Club-Hacker-Pack-945126fc911f4b65b1b13ae154c96e33)
-<p align="left">
-    <img src ="./images/banner.jpg" width="250" height="125"/>
-</p>
