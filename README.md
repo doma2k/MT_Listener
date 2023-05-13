@@ -73,6 +73,8 @@ When creating pull requests, **more is more:** I'd like to see ten small pull re
 ```
 Multi-Chain Event Listener
 Copyright (c) 2023 Kyrylo Doma.
+Discord: doma2k | Doma🏠Nodes#4006
+Telegram: @domanodes
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -86,3 +88,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+### Pawerd by Binance [**ZERO2HERO**](https://encodeclub.notion.site/BNB-Chain-Zero2Hero-Hackathon-powered-by-Encode-Club-Hacker-Pack-945126fc911f4b65b1b13ae154c96e33)
+<p align="left">
+    <img src ="./images/banner.jpg" width="250" height="125"/>
+</p>
