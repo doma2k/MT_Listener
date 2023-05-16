@@ -6,6 +6,7 @@ require('dotenv').config();
 const bot = new Telegraf(process.env.BOT_KEY);
 const listeners = new Map();
 const walletsDir = './wallets';
+const users = {};
 
 if (!fs.existsSync(walletsDir)) {
     fs.mkdirSync(walletsDir);
@@ -30,16 +31,6 @@ let networkState = {
 };
 
 bot.start(async (ctx) => {
-    for (let network of Object.keys(providers)) {
-        if (!networkState[network]) {
-            networkState[network] = true;
-            await listener(providers[network], network, ctx);
-        }
-    }
-    ctx.reply('Welcome to Multichain Event Listener. Starting all listeners.', getKeyboard());
-});
-
-bot.stop(async (ctx) => {
     for (let network of Object.keys(providers)) {
         if (!networkState[network]) {
             networkState[network] = true;
@@ -97,13 +88,13 @@ bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
     }
 });
 
-
 bot.help((ctx) => ctx.reply(`Welcome to Multichain Event Listener!
 
 This Telegram bot allows you to toggle event listening for different blockchain networks and add smart contract addresses or wallets to these networks. 
 
 Inline Commands:
 add [network] [address] - Add a smart contract address or wallet to the specified network.
+delete [network] [address] - Delete a smart contract address or wallet to the specified network.
 
 Networks:
 BSC: [Listening/Stopped] - Toggle event listening for Binance Smart Chain network.
@@ -112,8 +103,11 @@ BSCT: [Listening/Stopped] - Toggle event listening for Binance Smart Chain Testn
 GFD: [Listening/Stopped] - Toggle event listening for Greenfield network.
 
 Other Commands:
+/start - Start all listeners.
+/stop - Stop all listeners.
 /help - Show this help message.
-/list - Show list of listening addresses`));
+/list - Show list of listening addresses
+/reset - Delete all listening addresses`));
 
 bot.hears('/list', (ctx) => {
     const userID = String(ctx.from.id);
@@ -214,7 +208,6 @@ Transaction Index: ${transaction.transactionIndex}`;
     provider.on("block", blockListener);
     listeners.set(network, blockListener);
 }
-
 
 function stopListener(network) {
     if (listeners.has(network)) {
