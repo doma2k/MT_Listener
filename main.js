@@ -6,10 +6,9 @@ const listenerBSC = require('./networks/BSC.js');
 const listenerBSCT = require('./networks/BSCt.js');
 const listenerETH = require('./networks/ETH.js');
 const listenerGFD = require('./networks/GFD.js');
-const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addHandler.js');
+const { addAddress, removeAddress, resetAddresses, listAddresses } = require('./components/addrHandler.js');
 
-const botToken = process.env.BOT_KEY;
-const bot = new Telegraf(botToken);
+const bot = new Telegraf(process.env.BOT_KEY);
 let walletsToMonitor = {};
 
 bot.start((ctx) => {
@@ -41,6 +40,7 @@ bot.on('text', (ctx) => {
   const input = ctx.message.text.trim().split(" ");
   const command = input[0].toLowerCase();
   const address = input[1];
+
 
   if (address && !isValidAddress(address)) {
     return ctx.reply('Invalid address. Please send a valid smart contract address.');

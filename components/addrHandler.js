@@ -1,5 +1,6 @@
 exports.addAddress = (ctx, address, walletsToMonitor) => {
   const chatId = ctx.chat.id;
+  
   walletsToMonitor[chatId] = walletsToMonitor[chatId] || [];
   if (!walletsToMonitor[chatId].includes(address)) {
     walletsToMonitor[chatId].push(address);

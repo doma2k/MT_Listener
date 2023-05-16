@@ -8,6 +8,13 @@ module.exports = function (bot, ethers, listenerBSC, listenerBSCT, listenerETH, 
     };
 
     let listeners = {};
+    let listening = {
+        "BSC": true,
+        "BSCT": true,
+        "ETH": true,
+        "GFD": true,
+        // Add other networks here...
+    };
 
     async function startListeners() {
         listeners["BSC"] = await listenerBSC(getWalletsToMonitor, (chatId, msg) => sendMessage(chatId, msg), true, providers["BSC"]);

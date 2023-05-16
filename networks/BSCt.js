@@ -3,6 +3,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 
+
 async function listenerBSCT(getWalletsToMonitor, sendMessage, listening, provider) {
   try {
     provider.on("block", async (blockNumber) => {
@@ -37,6 +38,13 @@ async function listenerBSCT(getWalletsToMonitor, sendMessage, listening, provide
     });
   } catch (error) {
     console.log("Error: ", error.message);
+  }
+  function startListening() {
+    shouldListen = true;
+  }
+
+  function stopListening() {
+    shouldListen = false;
   }
 }
 
