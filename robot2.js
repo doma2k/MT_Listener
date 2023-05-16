@@ -11,6 +11,13 @@ const providers = {
     "GFD": new ethers.providers.JsonRpcProvider(process.env.GFD_RPC_ENDPOINT),
 };
 
+const wallets = {
+    "BSC": [],
+    "ETH": [],
+    "BSCT": [],
+    "GFD": []
+};
+
 let networkState = {
     "BSC": false,
     "ETH": false,
@@ -54,13 +61,30 @@ bot.hears(/(BSC|ETH|BSCT|GFD): (Listening|Stopped)/, (ctx) => {
     }
 });
 
-bot.hears(/.+/, (ctx) => {
-    const inputText = ctx.message.text;
-    if (!isValidAddress(inputText)) {
+bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
+    const inputParts = ctx.message.text.split(' ');
+    const network = inputParts[1];
+    const address = inputParts[2];
+
+    if (!isValidAddress(address)) {
         ctx.reply(`Invalid address. Please send a valid smart contract address or wallet.`);
+    } else if (Object.keys(wallets).includes(network)) {
+        if (wallets[network].includes(address)) {
+            ctx.reply(`The address ${address} is already added to the ${network} wallet.`);
+        } else {
+            wallets[network].push(address);
+            ctx.reply(`Added address ${address} to ${network} wallet.`);
+        }
     } else {
-        ctx.reply(`Added : ${inputText}`);
+        ctx.reply(`Invalid network. Please choose from BSC, ETH, BSCT, GFD.`);
     }
+});
+
+bot.hears('/reset', (ctx) => {
+    for (const network in wallets) {
+        wallets[network] = [];
+    }
+    ctx.reply('All addresses have been cleared from the wallets.');
 });
 
 async function listener(provider, network, ctx) {
@@ -94,13 +118,42 @@ function stopListener(network) {
     }
 }
 
+
 function isValidAddress(address) {
   return /^0x[a-fA-F0-9]{40}$/.test(address);
 }
 
-bot.help((ctx) => ctx.reply('Send me a sticker'));
+bot.help((ctx) => ctx.reply(`Welcome to Multichain Event Listener!
+
+This Telegram bot allows you to toggle event listening for different blockchain networks and add smart contract addresses or wallets to these networks. 
+
+Inline Commands:
+add [network] [address] - Add a smart contract address or wallet to the specified network.
+
+Networks:
+BSC: [Listening/Stopped] - Toggle event listening for Binance Smart Chain network.
+ETH: [Listening/Stopped] - Toggle event listening for Ethereum network.
+BSCT: [Listening/Stopped] - Toggle event listening for Binance Smart Chain Testnet.
+GFD: [Listening/Stopped] - Toggle event listening for Greenfield network.
+
+Other Commands:
+/help - Show this help message.
+/list - Show list of listening addresses`));
+
+bot.hears('/list', (ctx) => {
+    let replyMessage = 'Wallets:\n';
+    const networks = Object.keys(wallets);
+
+    for (const network of networks) {
+        replyMessage += `${network}: ${wallets[network].join(', ')}\n`;
+    }
+
+    ctx.reply(replyMessage);
+});
+
+
+
 bot.on('sticker', (ctx) => ctx.reply('👍'));
-bot.hears('hi', (ctx) => ctx.reply('Hey there'));
 bot.launch();
 
 // Enable graceful stop
