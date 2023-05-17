@@ -21,26 +21,11 @@ The application is set up with listeners for different blockchain networks (BSC,
 <p align="center">
     <img src ="./images/schem.png" width="400"/>
 </p>
+
 The components directory contains handlers managing addresses, bot interactions, and contracts. The networks directory holds JavaScript files for each blockchain network (BSC, BSCT, ETH, GFD) that define listeners for transaction monitoring.
 
 At the root level, main.js orchestrates the application, while Dockerfile and .dockerignore are used for Docker-based deployment. The package.json file handles the project's dependencies.
 
-```txt
-MT_Listener /
-    |---- components/			              
-        | ---- addrHandler.js                  
-        | ---- botHandler.js 
-        | ---- contractsHandler.js 
-    |---- networks/			                  
-        |---- BSC.js		          
-        |---- BSCt.js		        
-        |---- ETH.js		   
-        |---- GFD.js	  
-    |---- .dockerignore		                  
-    |---- main.js		                
-    |---- package.json		      
-    |---- Dockerfile	      
-```
 
 ## Deploy with Docker
 Prerequisites
