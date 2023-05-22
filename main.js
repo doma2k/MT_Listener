@@ -6,7 +6,6 @@ require('dotenv').config();
 const bot = new Telegraf(process.env.BOT_KEY);
 const listeners = new Map();
 const walletsDir = './wallets';
-const users = {};
 
 if (!fs.existsSync(walletsDir)) {
     fs.mkdirSync(walletsDir);
@@ -29,6 +28,14 @@ let networkState = {
     "BSCT": false,
     "GFD": false
 };
+
+
+const ERC20_ABI = [
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)",
+    "function totalSupply() view returns (uint256)"
+];
 
 bot.start(async (ctx) => {
     for (let network of Object.keys(providers)) {
@@ -64,7 +71,6 @@ bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
         const data = fs.readFileSync(`${walletsDir}/${userID}.json`);
         userWallets = JSON.parse(data);
     } catch (error) {
-        console.log("No wallets file found for this user. Creating new one.");
         userWallets = {
             "BSC": [],
             "ETH": [],
@@ -147,6 +153,16 @@ bot.hears('/reset', (ctx) => {
     ctx.reply('All addresses have been cleared from the User.');
 });
 
+bot.hears('/stop', async (ctx) => {
+    for (let network of Object.keys(providers)) {
+        if (networkState[network]) {
+            networkState[network] = false;
+            stopListener(network);
+        }
+    }
+    ctx.reply('All listeners have been stopped.', getKeyboard());
+});
+
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 bot.launch();
 
@@ -196,7 +212,29 @@ Gas Limit: ${transaction.gasLimit.toString()}
 Transaction Hash: ${transaction.hash}
 Nonce: ${transaction.nonce}
 Transaction Index: ${transaction.transactionIndex}`;
-                        ctx.reply(message);
+                        setTimeout(function () { ctx.reply(message); }, 1000)
+                    }
+                    // integrate it here 
+                    else if (transaction.to === null) {
+                        // Compute contract address
+                        const contractAddress = getContractAddress(transaction);
+
+                        // Check if contract is a token
+                        const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
+                        const symbol = await contract.symbol();
+                        const decimals = await contract.decimals();
+                        const totalSupply = await contract.totalSupply();
+
+                        // If these functions don't throw, we can assume it's a token.
+                        const tokenCreatedMessage = `
+Token Contract Detected! 
+Network: ${network}
+Contract Address: ${contractAddress}
+Symbol: ${symbol}
+Decimals: ${decimals}
+Total Supply: ${totalSupply}
+`;
+                        setTimeout(function () { ctx.reply(tokenCreatedMessage); }, 1000);
                     }
                 }
             } catch (error) {
@@ -219,6 +257,13 @@ function stopListener(network) {
 
 function isValidAddress(address) {
     return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
+
+function getContractAddress(transaction) {
+    const from = transaction.from;
+    const nonce = transaction.nonce;
+
+    return ethers.utils.getContractAddress({ from, nonce });
 }
 
 function getKeyboard() {
