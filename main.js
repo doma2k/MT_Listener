@@ -228,6 +228,7 @@ Transaction Index: ${transaction.transactionIndex}`;
                         // If these functions don't throw, we can assume it's a token.
                         const tokenCreatedMessage = `
 Token Contract Detected! 
+Block Number: ${transaction.blockNumber}
 Network: ${network}
 Contract Address: ${contractAddress}
 Symbol: ${symbol}
