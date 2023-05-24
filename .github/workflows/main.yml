@@ -10,23 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-docker-image .
+    - name: Build Docker image
+      run: |
+        docker build -t my-docker-image .
 
-      - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@latest
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Deploy to server
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
-            docker stop my-container || true
-            docker rm my-container || true
-            docker pull my-docker-image
-            docker run -d --name my-container --env BOT_KEY=${{ secrets.BOT_KEY }} my-docker-image
-          EOF
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
+          docker stop my-container || true
+          docker rm my-container || true
+          docker pull my-docker-image
+          docker run -d --name my-container --env BOT_KEY=${{ secrets.BOT_KEY }} my-docker-image
+        EOF
