@@ -5,28 +5,43 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: '${{ secrets.DOCKER_USERNAME }}/evm-listener'
+  CONTAINER_NAME: 'evm-listener'
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  DOCKER_REGISTRY: 'docker.io'
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v3
 
-    - name: Build Docker image
-      run: |
-        docker build -t my-docker-image .
+      - name: Build Docker image
+        run: |
+          docker build -t $DOCKER_REGISTRY/$IMAGE_NAME .
 
-    - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.8.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: Login to Docker registry
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME --password-stdin
 
-    - name: Deploy to server
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
-          docker stop my-container || true
-          docker rm my-container || true
-          docker pull my-docker-image
-          docker run -d --name my-container --env BOT_KEY=${{ secrets.BOT_KEY }} my-docker-image
-        EOF
+      - name: Push Docker image
+        run: |
+          docker push $DOCKER_REGISTRY/$IMAGE_NAME
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
+            docker stop $CONTAINER_NAME || true
+            docker rm $CONTAINER_NAME || true
+            docker pull $DOCKER_REGISTRY/$IMAGE_NAME
+            docker run -d --name $CONTAINER_NAME --env BOT_KEY=${{ secrets.BOT_KEY }} $DOCKER_REGISTRY/$IMAGE_NAME
+          EOF
