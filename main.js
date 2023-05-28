@@ -24,7 +24,6 @@ const wallets = {
 };
 let networkState = {
     "BSC": false,
-    "ETH": false,
     "BSCT": false,
     "GNFD": false
 };
