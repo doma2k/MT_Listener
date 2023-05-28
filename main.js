@@ -13,20 +13,20 @@ if (!fs.existsSync(walletsDir)) {
 const providers = {
     "BSC": new ethers.providers.JsonRpcProvider(process.env.BSC_RPC_ENDPOINT),
     "BSCT": new ethers.providers.JsonRpcProvider(process.env.BSCT_RPC_ENDPOINT),
-    "ETH": new ethers.providers.JsonRpcProvider(process.env.ETH_RPC_ENDPOINT),
-    "GFD": new ethers.providers.JsonRpcProvider(process.env.GFD_RPC_ENDPOINT),
+    // "ETH": new ethers.providers.JsonRpcProvider(process.env.ETH_RPC_ENDPOINT),
+    "GNFD": new ethers.providers.JsonRpcProvider(process.env.GFD_RPC_ENDPOINT),
 };
 const wallets = {
     "BSC": [],
-    "ETH": [],
+    // "ETH": [],
     "BSCT": [],
-    "GFD": []
+    "GNFD": []
 };
 let networkState = {
     "BSC": false,
     "ETH": false,
     "BSCT": false,
-    "GFD": false
+    "GNFD": false
 };
 
 
@@ -47,7 +47,7 @@ bot.start(async (ctx) => {
     ctx.reply('Welcome to Multichain Event Listener. Starting all listeners.', getKeyboard());
 });
 
-bot.hears(/(BSC|ETH|BSCT|GFD): (Listening|Stopped)/, (ctx) => {
+bot.hears(/(BSC|BSCT|GNFD): (Listening|Stopped)/, (ctx) => {
     const [network, status] = ctx.message.text.split(': ');
     if (status === 'Stopped') {
         networkState[network] = true;
@@ -60,7 +60,7 @@ bot.hears(/(BSC|ETH|BSCT|GFD): (Listening|Stopped)/, (ctx) => {
     }
 });
 
-bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
+bot.hears(/add (BSC|BSCT|GNFD) .+/, (ctx) => {
     const inputParts = ctx.message.text.split(' ');
     const network = inputParts[1];
     const address = inputParts[2];
@@ -73,9 +73,9 @@ bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
     } catch (error) {
         userWallets = {
             "BSC": [],
-            "ETH": [],
+            // "ETH": [],
             "BSCT": [],
-            "GFD": []
+            "GNFD": []
         };
     }
 
@@ -90,7 +90,7 @@ bot.hears(/add (BSC|ETH|BSCT|GFD) .+/, (ctx) => {
             ctx.reply(`Added address ${address} to ${network} wallet.`);
         }
     } else {
-        ctx.reply(`Invalid network. Please choose from BSC, ETH, BSCT, GFD.`);
+        ctx.reply(`Invalid network. Please choose from BSC, BSCT, GFD.`);
     }
 });
 
@@ -104,7 +104,6 @@ delete [network] [address] - Delete a smart contract address or wallet to the sp
 
 Networks:
 BSC: [Listening/Stopped] - Toggle event listening for Binance Smart Chain network.
-ETH: [Listening/Stopped] - Toggle event listening for Ethereum network.
 BSCT: [Listening/Stopped] - Toggle event listening for Binance Smart Chain Testnet.
 GFD: [Listening/Stopped] - Toggle event listening for Greenfield network.
 
@@ -125,9 +124,8 @@ bot.hears('/list', (ctx) => {
         console.log("No wallets file found for this user. Creating new one.");
         userWallets = {
             "BSC": [],
-            "ETH": [],
             "BSCT": [],
-            "GFD": []
+            "GNFD": []
         };
     }
 
@@ -145,9 +143,8 @@ bot.hears('/reset', (ctx) => {
     const userID = String(ctx.from.id);
     const emptyWallets = {
         "BSC": [],
-        "ETH": [],
         "BSCT": [],
-        "GFD": []
+        "GNFD": []
     };
     fs.writeFileSync(`${walletsDir}/${userID}.json`, JSON.stringify(emptyWallets));
     ctx.reply('All addresses have been cleared from the User.');
@@ -188,9 +185,8 @@ async function listener(provider, network, ctx) {
                 console.log("No wallets file found for this user. Creating new one.");
                 userWallets = {
                     "BSC": [],
-                    "ETH": [],
                     "BSCT": [],
-                    "GFD": []
+                    "GNFD": []
                 };
             }
 
