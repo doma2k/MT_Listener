@@ -13,6 +13,7 @@ Project in its conceptual stage and future development can be broken down into s
 - Adding an intuitive modular UI for dynamic interaction with multiple chains, contracts, and wallets.
 - Implementing a robust alert and notification system for real-time updates on transaction events.
 - Creating scalable and memory-efficient backend logic to store users data using decentralized providers.
+- Greenfield storage file uploader .
 
 ## Application Overview
 
