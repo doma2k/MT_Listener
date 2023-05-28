@@ -15,13 +15,13 @@ Project in its conceptual stage and future development can be broken down into s
 
 ## Application Overview
 
-The application is set up with listeners for different blockchain networks (BSC, BSCT, ETH, GFD). These listeners are constantly monitoring the blockchain for transactions related to the wallets you've specified. Once a transaction is detected, a message is sent to the corresponding chat on Telegram.
+The application is set up with listeners for different blockchain networks (BSC, BSCT, GNFD). These listeners are constantly monitoring the blockchain for transactions related to the wallets you've specified. Once a transaction is detected, a message is sent to the corresponding chat on Telegram.
 
 <p align="center">
     <img src ="./images/schem.png" width="400"/>
 </p>
 
-The components directory contains handlers managing addresses, bot interactions, and contracts. The networks directory holds JavaScript files for each blockchain network (BSC, BSCT, ETH, GFD) that define listeners for transaction monitoring.
+The components directory contains handlers managing addresses, bot interactions, and contracts. The networks directory holds JavaScript files for each blockchain network (BSC, BSCT, GNFD) that define listeners for transaction monitoring.
 
 At the root level, main.js orchestrates the application, while Dockerfile and .dockerignore are used for Docker-based deployment. The package.json file handles the project's dependencies.
 
