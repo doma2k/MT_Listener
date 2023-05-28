@@ -89,7 +89,7 @@ bot.hears(/add (BSC|BSCT|GNFD) .+/, (ctx) => {
             ctx.reply(`Added address ${address} to ${network} wallet.`);
         }
     } else {
-        ctx.reply(`Invalid network. Please choose from BSC, BSCT, GFD.`);
+        ctx.reply(`Invalid network. Please choose from BSC, BSCT, GNFD.`);
     }
 });
 
@@ -104,7 +104,7 @@ delete [network] [address] - Delete a smart contract address or wallet to the sp
 Networks:
 BSC: [Listening/Stopped] - Toggle event listening for Binance Smart Chain network.
 BSCT: [Listening/Stopped] - Toggle event listening for Binance Smart Chain Testnet.
-GFD: [Listening/Stopped] - Toggle event listening for Greenfield network.
+GNFD: [Listening/Stopped] - Toggle event listening for Greenfield network.
 
 Other Commands:
 /start - Start all listeners.
