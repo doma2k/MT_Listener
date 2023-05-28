@@ -1,6 +1,7 @@
-
 # Multi-chain EVM event Listener.
+
 #### Description:
+
 The Multi-Chain Event Listener is an application that allows you to monitor wallet and contract activities across multiple blockchain networks via a Telegram Bot. You can try this bot in action at [@BinanceTxSpyBot](https://t.me/BinanceTxSpyBot). This [README](https://github.com/doma2k/MT_Listener/blob/main/README.md) provides an overview of the app and guides on how to use it.
 
 <p align="center">
@@ -9,9 +10,9 @@ The Multi-Chain Event Listener is an application that allows you to monitor wall
 
 Project in its conceptual stage and future development can be broken down into stages of:
 
-* Adding an intuitive modular UI for dynamic interaction with multiple chains, contracts, and wallets.
-* Implementing a robust alert and notification system for real-time updates on transaction events.
-* Creating scalable and memory-efficient backend logic to store users data using decentralized providers.
+- Adding an intuitive modular UI for dynamic interaction with multiple chains, contracts, and wallets.
+- Implementing a robust alert and notification system for real-time updates on transaction events.
+- Creating scalable and memory-efficient backend logic to store users data using decentralized providers.
 
 ## Application Overview
 
@@ -25,8 +26,8 @@ The components directory contains handlers managing addresses, bot interactions,
 
 At the root level, main.js orchestrates the application, while Dockerfile and .dockerignore are used for Docker-based deployment. The package.json file handles the project's dependencies.
 
-
 ## Deploy with Docker
+
 Prerequisites
 Before proceeding, ensure that you have the following prerequisites installed on your system:
 
@@ -35,20 +36,20 @@ Before proceeding, ensure that you have the following prerequisites installed on
 
 Download repo and start application in container.
 
-
 ```
 # Dowload repository
 git clone https://github.com/doma2k/MT_Listener.git && cd MT_Listener
 
 # Create Docker image
-sudo docker build . -t mc_listener 
+sudo docker build . -t mc_listener
 
-# Start new container 
-docker run -p 8080:8080 mc_listener 
+# Start new container
+docker run -p 8080:8080 mc_listener
 
-# Stop container 
-docker kill mc_listener 
+# Stop container
+docker kill mc_listener
 ```
+
 ## Contributions
 
 Feel free to create issues and pull requests.
@@ -56,6 +57,7 @@ Feel free to create issues and pull requests.
 When creating pull requests, **more is more:** I'd like to see ten small pull requests separated by feature rather than all those combined into a huge one.
 
 ## License
+
 ```
 Multi-Chain Event Listener
 Copyright (c) 2023 Kyrylo Doma.

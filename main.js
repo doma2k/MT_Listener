@@ -14,7 +14,7 @@ const providers = {
     "BSC": new ethers.providers.JsonRpcProvider(process.env.BSC_RPC_ENDPOINT),
     "BSCT": new ethers.providers.JsonRpcProvider(process.env.BSCT_RPC_ENDPOINT),
     // "ETH": new ethers.providers.JsonRpcProvider(process.env.ETH_RPC_ENDPOINT),
-    "GNFD": new ethers.providers.JsonRpcProvider(process.env.GFD_RPC_ENDPOINT),
+    "GNFD": new ethers.providers.JsonRpcProvider(process.env.GNFD_RPC_ENDPOINT),
 };
 const wallets = {
     "BSC": [],
