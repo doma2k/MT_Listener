@@ -210,28 +210,28 @@ Transaction Index: ${transaction.transactionIndex}`;
                         setTimeout(function () { ctx.reply(message); }, 1000)
                     }
                     // integrate it here 
-//                     else if (transaction.to === null) {
-//                         // Compute contract address
-//                         const contractAddress = getContractAddress(transaction);
+                    else if (transaction.to === null) {
+                        // Compute contract address
+                        const contractAddress = getContractAddress(transaction);
 
-//                         // Check if contract is a token
-//                         const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
-//                         const symbol = await contract.symbol();
-//                         const decimals = await contract.decimals();
-//                         const totalSupply = await contract.totalSupply();
+                        // Check if contract is a token
+                        const contract = new ethers.Contract(contractAddress, ERC20_ABI, provider);
+                        const symbol = await contract.symbol();
+                        const decimals = await contract.decimals();
+                        const totalSupply = await contract.totalSupply();
 
-//                         // If these functions don't throw, we can assume it's a token.
-//                         const tokenCreatedMessage = `
-// Token Contract Detected! 
-// Block Number: ${transaction.blockNumber}
-// Network: ${network}
-// Contract Address: ${contractAddress}
-// Symbol: ${symbol}
-// Decimals: ${decimals}
-// Total Supply: ${totalSupply}
-// `;
-//                         setTimeout(function () { ctx.reply(tokenCreatedMessage); }, 1000);
-//                     }
+                        // If these functions don't throw, we can assume it's a token.
+                        const tokenCreatedMessage = `
+Token Contract Detected! 
+Block Number: ${transaction.blockNumber}
+Network: ${network}
+Contract Address: ${contractAddress}
+Symbol: ${symbol}
+Decimals: ${decimals}
+Total Supply: ${totalSupply}
+`;
+                        setTimeout(function () { ctx.reply(tokenCreatedMessage); }, 1000);
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching block details:", error);
