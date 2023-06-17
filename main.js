@@ -209,7 +209,6 @@ Nonce: ${transaction.nonce}
 Transaction Index: ${transaction.transactionIndex}`;
                         setTimeout(function () { ctx.reply(message); }, 1000)
                     }
-                    // integrate it here 
                     else if (transaction.to === null) {
                         // Compute contract address
                         const contractAddress = getContractAddress(transaction);

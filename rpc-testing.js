@@ -3,7 +3,6 @@ const { decodeTxRaw } = require("@cosmjs/proto-signing");
 
 const ws = new WebSocket('ws://gnfd-testnet-fullnode-tendermint-us.bnbchain.org/websocket');
 
-
 ws.on('open', () => {
     const subscriptionRequest = JSON.stringify({
         jsonrpc: '2.0',
@@ -18,6 +17,7 @@ ws.on('open', () => {
 ws.on('message', (message) => {
     const parsedMessage = JSON.parse(message);
     if (parsedMessage.result && parsedMessage.result.data && parsedMessage.result.data.value) {
+
         const blockHeight = parsedMessage.result.data.value.block.header.height;
         const txs = parsedMessage.result.data.value.block.data.txs;
 
@@ -28,8 +28,6 @@ ws.on('message', (message) => {
                 let decodedTx = decodeTxRaw(raw);
                 console.log('Transaction', i + 1);
                 console.log(decodedTx.body.messages);
-                
-                
             });
         } else {
             console.log('No transactions in this block.');

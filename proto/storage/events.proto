@@ -1,5 +1,5 @@
 syntax = "proto3";
-package greenfield.storage;
+package ;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
